@@ -12,8 +12,14 @@ public class UserDao {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public UserEntity createUser(UserEntity userEntity){
+    public UserEntity createUser(UserEntity userEntity) {
         this.entityManager.persist( userEntity );
         return userEntity;
+    }
+
+    public UserEntity getUser(final String userUuid) {
+        return entityManager.createNamedQuery( "userByUuid", UserEntity.class ).setParameter( "uuid", userUuid )
+                .getSingleResult();
+
     }
 }
