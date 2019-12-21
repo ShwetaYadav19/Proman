@@ -1,0 +1,4 @@
+.idea/*
+proman-api/target/*
+proman-service/target/*
+proman-db/target/*
