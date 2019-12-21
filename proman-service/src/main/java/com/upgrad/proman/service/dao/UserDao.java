@@ -23,28 +23,37 @@ public class UserDao {
         try {
             return entityManager.createNamedQuery( "userByUuid", UserEntity.class ).setParameter( "uuid", userUuid )
                     .getSingleResult();
-        }  catch (NoResultException nre){
+        } catch (NoResultException nre) {
             return null;
         }
 
     }
 
-    public UserEntity getUserByEmail(final String email){
+    public UserEntity getUserByEmail(final String email) {
         try {
             return entityManager.createNamedQuery( "userByEmail", UserEntity.class ).setParameter( "email", email )
                     .getSingleResult();
-        } catch (NoResultException nre){
+        } catch (NoResultException nre) {
             return null;
         }
 
     }
 
-    public UserAuthTokenEntity createAuthToken(final UserAuthTokenEntity userAuthTokenEntity){
+    public UserAuthTokenEntity createAuthToken(final UserAuthTokenEntity userAuthTokenEntity) {
         this.entityManager.persist( userAuthTokenEntity );
         return userAuthTokenEntity;
     }
 
-    public void updateUser(final UserEntity updatedUserEntity){
+    public void updateUser(final UserEntity updatedUserEntity) {
         entityManager.merge( updatedUserEntity );
+    }
+
+    public UserAuthTokenEntity getUserAuthToken(final String accessToken) {
+        try {
+            return this.entityManager.createNamedQuery( "userAuthTokenByAccessToken", UserAuthTokenEntity.class ).
+                    setParameter( "accessToken", accessToken ).getSingleResult();
+        } catch (NoResultException nre) {
+            return null;
+        }
     }
 }

@@ -4,6 +4,7 @@ import com.upgrad.proman.api.model.SignupUserRequest;
 import com.upgrad.proman.api.model.SignupUserResponse;
 import com.upgrad.proman.service.business.SignupBusinessService;
 import com.upgrad.proman.service.entity.UserEntity;
+import com.upgrad.proman.service.type.UserStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,7 +35,7 @@ public class SignupController {
         userEntity.setPassword(signupUserRequest.getPassword());
         userEntity.setMobilePhone(signupUserRequest.getMobileNumber());
         userEntity.setSalt("1234abc");
-        userEntity.setStatus(4);
+        userEntity.setStatus(UserStatus.REGISTERED.getCode() );
         userEntity.setCreatedAt(ZonedDateTime.now());
         userEntity.setCreatedBy("api-backend");
         final UserEntity createdUserEntity = signupBusinessService.signup(userEntity);
